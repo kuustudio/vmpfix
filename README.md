@@ -1,13 +1,14 @@
 # vmpfix
-*vmpfix* is a dynamic x86/x64 VMProtect 2.13-3.5 import rebuilder.
-The main goal of this project was to build correct and reliable tool to fix x86/x64 applications.
+*VMPfix* is a dynamic x86/x64 VMProtect 2.13-3.5 import rebuilder.
+The main goal of this project was to build correct and reliable tool to fix imports in x86/x64 applications.
+
+Note: this tool does not dump and rebuild import directory. You can do this from your favorite debugger.
+
 ## Before
-![](media/before1.png) 
-![](media/before2.png)
+![](media/before.png) 
 
 ## After
-![](media/after1.png)
-![](media/after2.png)
+![](media/after.png)
 
 ## Usage
 ```bash
@@ -24,7 +25,7 @@ Optional arguments:
 -m --module     VMProtected module name (default: main executable) [default: ""]
 ```
 
-VMProtect unpacking must be complete before running *vmpfix*.
+VMProtect unpacking must be complete before running *VMPfix*.
 
 ## Details
 There are 3 types of IAT accesses that VMProtect patches: `call`, `jmp` and `mov`.
@@ -102,6 +103,12 @@ git clone --recurse-submodules https://github.com/archercreat/vmpfix.git
 cd vmpfix
 cmkr build
 ```
+
+## Tests
+Successfuly unpacked, dumped and ran:
+`steam.exe x86 752ac6ab6ec58c14bcbae0409ac732e4846a37838919806d1cf1b4cd19095f82`
+`vncviewer.exe x64 4158a5e55cbd6a5a8f4ed38befe2a8c9fa0c7a7fbc91709a31592dda95110517`
+
 ## Credits
 https://github.com/build-cpp/cmk
 https://github.com/can1357/linux-pe
