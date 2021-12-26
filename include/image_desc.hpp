@@ -1,7 +1,6 @@
 #pragma once
 #include <linuxpe>
 #include <vector>
-#include <set>
 
 struct image_t
 {

@@ -1,7 +1,8 @@
 #include <optional>
-#include <ranges>
+#include <set>
+
 #include "vmp_analyzer.hpp"
-#include "deobfuscate.hpp"
+#include "disasm.hpp"
 
 static std::set<std::string_view> vmp_names;
 
@@ -146,7 +147,7 @@ vmp_stub_t analyze_stub(const instruction_t& last_ins, const instruction_t& call
     return out;
 }
 
-// Protected API must have exactly 3 instructions:
+// Resolving stub must have exactly 3 instructions:
 // `lea reg, [imm]` or `mov reg, imm`
 // `mov reg, [reg + imm]`
 // `lea reg, [reg + imm]`
@@ -239,7 +240,6 @@ static std::vector<vmp_stub_t> analyze_section(image_t* img, size_t n)
     {
         instruction_t ins;
         const auto raw = img->raw_to_ptr(start_rva);
-        // std::printf("Checking: 0x%llx\n", start_rva + img->get_real_image_base());
         // We are looking for calls to vmp section.
         //
         if (*raw == 0xe8 && dis(img, start_rva, &ins) && img->has_va(ins.get_target_addr(0)))
@@ -264,8 +264,8 @@ static std::vector<vmp_stub_t> analyze_section(image_t* img, size_t n)
                         //
                         instruction_t b_ins;
                         dis(img, start_rva - 1, &b_ins);
-                        auto stub = analyze_stub(b_ins, ins, ss);
 
+                        auto stub = analyze_stub(b_ins, ins, ss);
                         stub.resolved_api = api.value();
                         start_rva = static_cast<uint32_t>(stub.ins_address + stub.ins_size - img->get_mapped_image_base());
                         stubs.push_back(std::move(stub));

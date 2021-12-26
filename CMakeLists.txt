@@ -67,10 +67,10 @@ set(CMKR_TARGET vmpfix)
 set(vmpfix_SOURCES "")
 
 list(APPEND vmpfix_SOURCES
-	"src/deobfuscate.cpp"
+	"src/disasm.cpp"
 	"src/main.cpp"
 	"src/vmp_analyzer.cpp"
-	"include/deobfuscate.hpp"
+	"include/disasm.hpp"
 	"include/image_desc.hpp"
 	"include/vmp_analyzer.hpp"
 )

@@ -1,6 +1,5 @@
-#include "deobfuscate.hpp"
+#include "disasm.hpp"
 #include <algorithm>
-#include <ranges>
 #include <set>
 
 uint64_t instruction_t::get_target_addr(size_t n) const
@@ -115,6 +114,11 @@ routine_t unroll(image_t* img, uint64_t rva)
         ins.runtime_addr = rva + img->get_mapped_image_base();
         ins.i = i;
         std::copy(std::begin(operands), std::end(operands), std::begin(ins.operands));
+
+        // Exit if we found a loop.
+        //
+        if (std::any_of(routine.begin(), routine.end(), [&](const auto& i) { return i.runtime_addr == ins.runtime_addr; }))
+            return routine;
 
         if (ins.is_jmp() || ins.is_branch())
         {

@@ -65,6 +65,8 @@ int main(int argc, char** argv)
 
         init_section_names(secs);
 
+        std::cout << "Collecting stubs on " << mod_name << std::endl;
+
         auto stubs = collect_stubs(img.get());
         std::printf("Found %llu protected imports\n", stubs.size());
 
