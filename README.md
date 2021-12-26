@@ -2,10 +2,10 @@
 *vmpfix* is a dynamic x86/x64 VMProtect 2.13-3.5 import rebuilder.
 The main goal of this project was to build correct and reliable tool to fix x86/x64 applications.
 ## Before
-![[Pasted image 20211226210853.png]] ![[Pasted image 20211226211135.png]]
+![[before1.png]] ![[before2.png]]
 
 ## After
-![[Pasted image 20211226211224.png]]![[Pasted image 20211226211015.png]]]] 
+![[after1.png]] ![[after2.png]]]] 
 ## Usage
 ```bash
 vmpfix.exe
