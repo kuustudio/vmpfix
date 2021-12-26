@@ -35,7 +35,7 @@ lea reg, [imm]
 mov reg, [reg + imm]
 lea reg, [reg + imm]
 ```
-Although stubs are obfuscated there are only handful of instructions that matters:
+Although stubs are obfuscated, there are only handful of instructions that matters:
 ```
 push
 pop
@@ -44,6 +44,7 @@ mov
 xchg
 ret
 ```
+
 ### Call stubs
 Every `call` stub ends with `xchg` instruction:
 `call [IAT]` -> `call .vmp1; int3`:
@@ -71,7 +72,7 @@ Every `call` stub ends with `xchg` instruction:
 ```
 ### Jmp stubs
 Every `jmp` stub ends with `ret 4/8` instruction:
-`jmp [IAT]` -> `push rcx; call .vmp1:
+`jmp [IAT]` -> `push rcx; call .vmp1`:
 ```
 [!] pop         rcx
 [!] xchg        rcx,qword ptr [rsp]
@@ -84,7 +85,7 @@ Every `jmp` stub ends with `ret 4/8` instruction:
 ```
 ### Mov stubs
 Every other stub can be considered as `mov` stub. There are some patterns as well. E.g. there is no `ret 8` or `xchg` at the end.
-`mov rsi, API` -> `push rsi; call .vmp1`:
+`mov rsi, [IAT]` -> `push rsi; call .vmp1`:
 ```
 [!] pop         rsi
 [!] xchg        rsi,qword ptr [rsp]
@@ -106,12 +107,17 @@ cmkr build
 
 ## Tests
 Successfuly unpacked, dumped and ran:
+
 `steam.exe x86 752ac6ab6ec58c14bcbae0409ac732e4846a37838919806d1cf1b4cd19095f82`
+
 `vncviewer.exe x64 4158a5e55cbd6a5a8f4ed38befe2a8c9fa0c7a7fbc91709a31592dda95110517`
 
 ## Credits
 https://github.com/build-cpp/cmk
+
 https://github.com/can1357/linux-pe
+
 https://github.com/DarthTon/Blackbone
+
 ## TODO
 - kernel support
