@@ -1,5 +1,5 @@
 # vmpfix
-*VMPfix* is a dynamic x86/x64 VMProtect 2.13-3.5 import rebuilder.
+*VMPfix* is a dynamic x86/x64 VMProtect 2.13-3.5 import fixer.
 The main goal of this project was to build correct and reliable tool to fix imports in x86/x64 applications.
 
 Note: this tool does not dump and rebuild import directory. You can do this from your favorite debugger.
@@ -47,6 +47,7 @@ ret
 
 ### Call stubs
 Every `call` stub ends with `xchg` instruction:
+
 `call [IAT]` -> `call .vmp1; int3`:
 ```
 [!] push        rax
@@ -59,6 +60,7 @@ Every `call` stub ends with `xchg` instruction:
 [!] xchg        rax,qword ptr [rsp]
 [!] ret
 ```
+
 `call [IAT]` -> `push rcx; call .vmp1`:
 ```
 [!] pop         rsi
@@ -72,6 +74,7 @@ Every `call` stub ends with `xchg` instruction:
 ```
 ### Jmp stubs
 Every `jmp` stub ends with `ret 4/8` instruction:
+
 `jmp [IAT]` -> `push rcx; call .vmp1`:
 ```
 [!] pop         rcx
@@ -85,6 +88,7 @@ Every `jmp` stub ends with `ret 4/8` instruction:
 ```
 ### Mov stubs
 Every other stub can be considered as `mov` stub. There are some patterns as well. E.g. there is no `ret 8` or `xchg` at the end.
+
 `mov rsi, [IAT]` -> `push rsi; call .vmp1`:
 ```
 [!] pop         rsi
