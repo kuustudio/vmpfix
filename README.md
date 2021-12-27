@@ -110,7 +110,7 @@ cmkr build
 ```
 
 ## Tests
-Successfuly unpacked, dumped and ran:
+Successfully unpacked, dumped and ran:
 
 `steam.exe x86 752ac6ab6ec58c14bcbae0409ac732e4846a37838919806d1cf1b4cd19095f82`
 
