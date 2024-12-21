@@ -23,7 +23,8 @@ endif()
 [fetch-content]
 argparse = { git = "https://github.com/p-ranav/argparse.git" }
 linux-pe = { git = "https://github.com/can1357/linux-pe.git" }
-Zydis    = { git = "https://github.com/zyantific/zydis.git" }
+# https://github.com/zyantific/zydis/releases/tag/v3.2.1"
+Zydis    = { git = "https://github.com/zyantific/zydis.git", tag = "875c8a75344d0ad71b02bcd2cc5e3acb87e7b003" }
 
 [target.vmpfix]
 type = "executable"
